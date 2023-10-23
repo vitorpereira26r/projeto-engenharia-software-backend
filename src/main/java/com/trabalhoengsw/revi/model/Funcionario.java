@@ -17,14 +17,13 @@ public class Funcionario extends Pessoa{
     @Column(name = "isAdmin")
     private boolean isAdmin;
 
-    public Funcionario(String name, String cpf, String email, String password, boolean isAdmin, Integer id) {
+    public Funcionario(String name, String cpf, String email, String password, boolean isAdmin) {
         super(name, cpf, email, password);
-        this.id = id;
         this.isAdmin = isAdmin;
     }
 
     public Funcionario() {
-        super(null, null, null, null);
+        super();
     }
 
     public Integer getId() {

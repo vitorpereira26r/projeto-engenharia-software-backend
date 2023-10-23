@@ -1,7 +1,6 @@
 package com.trabalhoengsw.revi.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -19,6 +18,9 @@ public abstract class Pessoa {
 
     @Column(name = "password")
     private String password;
+
+    public Pessoa() {
+    }
 
     public Pessoa(String name, String cpf, String email, String password) {
         this.name = name;

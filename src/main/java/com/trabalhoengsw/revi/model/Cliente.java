@@ -29,7 +29,7 @@ public class Cliente extends Pessoa{
     }
 
     public Cliente() {
-        super(null, null, null, null);
+        super();
         this.veiculos = new ArrayList<>();
         this.ocorrencias = new ArrayList<>();
     }
