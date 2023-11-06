@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/cliente")
 public class ClienteController implements Controller<Cliente>{
 
     @Autowired
@@ -22,27 +22,27 @@ public class ClienteController implements Controller<Cliente>{
     }
 
     @Override
-    @PostMapping("/create-cliente")
+    @PostMapping("/create")
     public Cliente createElement(@RequestBody Cliente element) {
         Cliente newCliente = clienteRepository.save(element);
         return newCliente;
     }
 
     @Override
-    @GetMapping("/clientes")
+    @GetMapping("/get")
     public List<Cliente> getElements() {
         return clienteRepository.findAll();
     }
 
     @Override
-    @GetMapping("/cliente/{id}")
+    @GetMapping("/get/{id}")
     public Cliente getElementById(@PathVariable Integer id) {
         Optional<Cliente> obj = clienteRepository.findById(id);
         return obj.get();
     }
 
     @Override
-    @PutMapping("/update-cliente/{id}")
+    @PutMapping("/update/{id}")
     public Cliente updateElement(@PathVariable Integer id, @RequestBody Cliente element) {
         Cliente obj = clienteRepository.getReferenceById(id);
         updateData(obj, element);
@@ -51,7 +51,7 @@ public class ClienteController implements Controller<Cliente>{
     }
 
     @Override
-    @DeleteMapping("/delete-cliente/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteElement(@PathVariable Integer id) {
         clienteRepository.deleteById(id);
     }
