@@ -1,0 +1,100 @@
+acessar banco de dados h2
+acessar no browser: http://localhost:8080/h2-console/
+username: dev
+password: 
+nao tem senha mesmo, deixa em branco
+
+descrição funcionalidade - url - metodo - observação
+
+criar ocorrencia - http://localhost:8080/ocorrencia/create (POST)
+exemplo JSON:
+{
+    "description": "ocorrencia description",
+    "cliente": {
+        "name": "Cliente 2",
+        "cpf": "1111111111",
+        "email": "cliente2@gmail.com",
+        "password": "senha2",
+        "id": 2
+    },
+    "veiculo": {
+        "id": 1,
+        "placa": "ABC1234",
+        "modelo": "Ferrari",
+        "ano": 2023
+    }
+},
+get todos os ocorrencias - http://localhost:8080/ocorrencia/get (GET),
+get um ocorrencia por id - http://localhost:8080/ocorrencia/get/{id} (GET) (troca o id na url por um id de verdade),
+atualizar ocorrencia (por id) - http://localhost:8080/ocorrencia/update/{id} (PUT) (troca o id na url por um id de verdade)
+exemplo JSON:
+{
+    "description": "new ocorrencia description"
+},
+deletar ocorrencia (por id) - http://localhost:8080/ocorrencia/delete/{id} (DELETE) (troca o id na url por um id de verdade)
+gerar relatorio ocorrencia (por id da ocorrencia) - http://localhost:8080/ocorrencia/download-relatorio/{id} (GET) (trocar o id na url por um id de verdade, o que queremos o relatorio sobre)
+
+criar cliente - http://localhost:8080/cliente/create (POST)
+exemplo JSON:
+{
+    "name": "vitor",
+    "cpf": "0000000",
+    "email": "vitor@gmail.com",
+    "password": "password"
+},
+get todos os clientes - http://localhost:8080/cliente/get (GET),
+get um cliente por id - http://localhost:8080/cliente/get/{id} (GET) (troca o id na url por um id de verdade),
+atualizar cliente (por id) - http://localhost:8080/cliente/update/{id} (PUT) (troca o id na url por um id de verdade)
+exemplo JSON:
+{
+    "name": "vitor",
+    "cpf": "0000000",
+    "email": "vitor@gmail.com",
+    "password": "password"
+},
+deletar cliente (por id) - http://localhost:8080/cliente/delete/{id} (DELETE) (troca o id na url por um id de verdade)
+
+criar funcionario - http://localhost:8080/funcionario/create (POST)
+exemplo JSON:
+{
+    "idAdmin": false,
+    "name": "vitor",
+    "cpf": "0000000",
+    "email": "vitor@gmail.com",
+    "password": "password"
+},
+get todos os funcionarios - http://localhost:8080/funcionario/get (GET),
+get um funcionario por id - http://localhost:8080/funcionario/get/{id} (GET) (troca o id na url por um id de verdade),
+atualizar funcionario (por id) - http://localhost:8080/funcionario/update/{id} (PUT) (troca o id na url por um id de verdade)
+exemplo JSON:
+{
+    "name": "vitor",
+    "cpf": "0000000",
+    "email": "vitor@gmail.com"
+},
+deletar funcionario (por id) - http://localhost:8080/funcionario/delete/{id} (DELETE) (troca o id na url por um id de verdade)
+
+criar veiculo - http://localhost:8080/veiculo/create (POST)
+exemplo JSON:
+{
+    "placa": "1234567",
+    "modelo": "modelo",
+    "ano": 2012,
+    "cliente":{
+        "id": 1,
+        "name": "Hulk do galo",
+        "cpf": "1234567890",
+        "email": "hulk7givanildo@gmail.com",
+        "password": "paunocumaria"
+    }
+},
+get todos os veiculos - http://localhost:8080/veiculo/get (GET),
+get um veiculo por id - http://localhost:8080/veiculo/get/{id} (GET) (troca o id na url por um id de verdade),
+atualizar veiculo (por id) - http://localhost:8080/veiculo/update/{id} (PUT) (troca o id na url por um id de verdade)
+exemplo JSON:
+{
+    "placa": "1234567",
+    "modelo": "modelo",
+    "ano": 2012
+},
+deletar veiculo (por id) - http://localhost:8080/veiculo/delete/{id} (DELETE) (troca o id na url por um id de verdade)
