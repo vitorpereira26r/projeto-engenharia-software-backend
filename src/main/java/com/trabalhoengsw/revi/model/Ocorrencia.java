@@ -21,12 +21,10 @@ public class Ocorrencia {
     @Column(name = "description")
     private String description;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;

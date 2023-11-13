@@ -33,6 +33,7 @@ public class Veiculo {
     private Cliente cliente;
 
 
+    @JsonIgnore
     @OneToMany(mappedBy = "veiculo")
     private List<Ocorrencia> ocorrencias;
 

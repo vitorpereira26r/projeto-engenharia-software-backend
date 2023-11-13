@@ -67,7 +67,7 @@ public class OcorrenciaController implements Controller<Ocorrencia> {
                     .body(pdfBytes);
 
         } catch (DocumentException e) {
-            e.printStackTrace(); // ou use algum mecanismo de log
+            e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }
     }

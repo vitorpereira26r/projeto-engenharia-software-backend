@@ -16,9 +16,11 @@ public class Cliente extends Pessoa{
     @Column(name = "id_cliente")
     private Integer id;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Veiculo> veiculos;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Ocorrencia> ocorrencias;
 
