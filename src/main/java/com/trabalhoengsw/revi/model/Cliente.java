@@ -17,11 +17,11 @@ public class Cliente extends Pessoa{
     private Integer id;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.REMOVE)
     private List<Veiculo> veiculos;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.REMOVE)
     private List<Ocorrencia> ocorrencias;
 
     public Cliente(String name, String cpf, String email, String password) {

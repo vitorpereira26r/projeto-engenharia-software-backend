@@ -34,7 +34,7 @@ public class Veiculo {
 
 
     @JsonIgnore
-    @OneToMany(mappedBy = "veiculo")
+    @OneToMany(mappedBy = "veiculo", cascade = CascadeType.REMOVE)
     private List<Ocorrencia> ocorrencias;
 
     public Veiculo() {
