@@ -4,6 +4,10 @@ username: dev
 password: 
 nao tem senha mesmo, deixa em branco
 
+acessar banco de dados mysql
+criar a base de dados com o nome "projeto-eng-software" nna mysql connection que vc vai usar
+colocar o username e a senha da sua connection do seu computador no arquivo application-dev.properties nos campos designados
+
 descrição funcionalidade - url - metodo - observação
 
 criar ocorrencia - http://localhost:8080/ocorrencia/create (POST)
