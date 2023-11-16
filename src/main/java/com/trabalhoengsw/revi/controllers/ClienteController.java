@@ -1,8 +1,14 @@
 package com.trabalhoengsw.revi.controllers;
 
+import com.trabalhoengsw.revi.exceptions.DatabaseException;
+import com.trabalhoengsw.revi.exceptions.ResourceNotFoundException;
 import com.trabalhoengsw.revi.model.Cliente;
+import com.trabalhoengsw.revi.model.Funcionario;
 import com.trabalhoengsw.revi.repositories.ClienteRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +30,11 @@ public class ClienteController implements Controller<Cliente>{
     @Override
     @PostMapping("/create")
     public Cliente createElement(@RequestBody Cliente element) {
-        Cliente newCliente = clienteRepository.save(element);
-        return newCliente;
+        if(isNotUnique(element)){
+            throw new DatabaseException("Cpf, email and name must be unique");
+        }
+
+        return clienteRepository.save(element);
     }
 
     @Override
@@ -37,28 +46,53 @@ public class ClienteController implements Controller<Cliente>{
     @Override
     @GetMapping("/get/{id}")
     public Cliente getElementById(@PathVariable Integer id) {
-        Optional<Cliente> obj = clienteRepository.findById(id);
-        return obj.get();
+        return clienteRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException(id)
+        );
     }
 
     @Override
     @PutMapping("/update/{id}")
     public Cliente updateElement(@PathVariable Integer id, @RequestBody Cliente element) {
-        Cliente obj = clienteRepository.getReferenceById(id);
-        updateData(obj, element);
-        Cliente entity = clienteRepository.save(obj);
-        return entity;
+        if(isNotUnique(element)){
+            throw new DatabaseException("Cpf, email and name must be unique");
+        }
+
+        try{
+            Cliente obj = clienteRepository.getReferenceById(id);
+            updateData(obj, element);
+            return clienteRepository.save(obj);
+        }
+        catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     @Override
     @DeleteMapping("/delete/{id}")
     public void deleteElement(@PathVariable Integer id) {
-        clienteRepository.deleteById(id);
+        try{
+            clienteRepository.deleteById(id);
+        }
+        catch(EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id);
+        }
+        catch(DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     private void updateData(Cliente obj, Cliente entity){
         obj.setName(entity.getName());
         obj.setCpf(entity.getCpf());
         obj.setEmail(entity.getEmail());
+    }
+
+    private boolean isNotUnique(Cliente cliente){
+        Optional<Cliente> existingName = clienteRepository.findByName(cliente.getName());
+        Optional<Cliente> existingCpf = clienteRepository.findByCpf(cliente.getCpf());
+        Optional<Cliente> existingEmail = clienteRepository.findByEmail(cliente.getEmail());
+
+        return existingName.isPresent() || existingCpf.isPresent() || existingEmail.isPresent();
     }
 }

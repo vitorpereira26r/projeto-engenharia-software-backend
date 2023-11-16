@@ -7,6 +7,7 @@ nao tem senha mesmo, deixa em branco
 acessar banco de dados mysql
 criar a base de dados com o nome "projeto-eng-software" nna mysql connection que vc vai usar
 colocar o username e a senha da sua connection do seu computador no arquivo application-dev.properties nos campos designados
+mudar em application.properties o profile para dev, ao inves de test
 
 descrição funcionalidade - url - metodo - observação
 
@@ -65,6 +66,12 @@ exemplo JSON:
     "name": "vitor",
     "cpf": "0000000",
     "email": "vitor@gmail.com",
+    "password": "password"
+},
+login funcionario - http://localhost:8080/funcionario/login (POST)
+exemplo JSON:
+{
+    "name": "vitor",
     "password": "password"
 },
 get todos os funcionarios - http://localhost:8080/funcionario/get (GET),

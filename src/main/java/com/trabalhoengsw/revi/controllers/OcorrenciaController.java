@@ -5,11 +5,16 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.trabalhoengsw.revi.config.FileStorageProperties;
+import com.trabalhoengsw.revi.exceptions.DatabaseException;
+import com.trabalhoengsw.revi.exceptions.ResourceNotFoundException;
 import com.trabalhoengsw.revi.model.Ocorrencia;
 import com.trabalhoengsw.revi.model.dtos.OcorrenciaDto;
 import com.trabalhoengsw.revi.repositories.OcorrenciaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -81,8 +86,7 @@ public class OcorrenciaController implements Controller<Ocorrencia> {
                 dto.getVeiculo()
         );
 
-        Ocorrencia newOcorrencia = repository.save(ocorrencia);
-        return newOcorrencia;
+        return repository.save(ocorrencia);
     }
 
     @Override
@@ -99,21 +103,35 @@ public class OcorrenciaController implements Controller<Ocorrencia> {
     @Override
     @GetMapping("/get/{id}")
     public Ocorrencia getElementById(@PathVariable Integer id) {
-        Optional<Ocorrencia> obj = repository.findById(id);
-        return obj.get();
+        return repository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException(id)
+        );
     }
 
     @Override
     @PutMapping("/update/{id}")
     public Ocorrencia updateElement(@PathVariable Integer id, @RequestBody Ocorrencia element) {
-        Ocorrencia entity = repository.getReferenceById(id);
-        entity.setDescription(element.getDescription());
-        return repository.save(entity);
+        try{
+            Ocorrencia entity = repository.getReferenceById(id);
+            entity.setDescription(element.getDescription());
+            return repository.save(entity);
+        }
+        catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     @Override
     @DeleteMapping("/delete/{id}")
     public void deleteElement(@PathVariable Integer id) {
-        repository.deleteById(id);
+        try{
+            repository.deleteById(id);
+        }
+        catch(EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id);
+        }
+        catch(DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
 }
