@@ -1,13 +1,11 @@
 package com.trabalhoengsw.revi.controllers;
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.trabalhoengsw.revi.config.FileStorageProperties;
 import com.trabalhoengsw.revi.exceptions.DatabaseException;
 import com.trabalhoengsw.revi.exceptions.ResourceNotFoundException;
 import com.trabalhoengsw.revi.model.Ocorrencia;
 import com.trabalhoengsw.revi.model.dtos.OcorrenciaDto;
 import com.trabalhoengsw.revi.repositories.OcorrenciaRepository;
+import com.trabalhoengsw.revi.services.PdfServices;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +16,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/ocorrencia")
@@ -36,6 +26,10 @@ public class OcorrenciaController implements Controller<Ocorrencia> {
 
     @Autowired
     private OcorrenciaRepository repository;
+
+    @Autowired
+    private PdfServices pdfServices;
+
     private static OcorrenciaController instancia;
 
     public static OcorrenciaController getInstancia(){
@@ -45,33 +39,10 @@ public class OcorrenciaController implements Controller<Ocorrencia> {
     @GetMapping("/download-relatorio/{id}")
     public ResponseEntity<byte[]> downloadFile(HttpServletRequest request, @PathVariable Integer id) throws IOException {
         try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            Document document = new Document();
-            PdfWriter.getInstance(document, baos);
 
             Ocorrencia ocorrencia = repository.getReferenceById(id);
 
-            document.open();
-
-            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
-            Paragraph title = new Paragraph("Relatório de Ocorrência", titleFont);
-            title.setAlignment(Element.ALIGN_CENTER);
-            document.add(title);
-
-            document.add(new Paragraph("Relatório ocorrencia do veiculo " + ocorrencia.getVeiculo().getPlaca() + " e do cliente " + ocorrencia.getCliente().getName()));
-            document.add(new Paragraph("Informações da ocorrência: "));
-            document.add(new Paragraph("Cliente da ocorrencia: "+ocorrencia.getCliente().getName()));
-            document.add(new Paragraph("Veiculo da ocorrencia: "+ocorrencia.getVeiculo().getPlaca()));
-
-            Date date = Date.from(ocorrencia.getData());
-            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
-            String formattedDate = dateFormat.format(date);
-            document.add(new Paragraph("Horário da ocorrência: " + formattedDate));
-
-            document.add(new Paragraph("Descrição ocorrencia: "+ocorrencia.getDescription()));
-            document.close();
-
-            byte[] pdfBytes = baos.toByteArray();
+            byte[] pdfBytes = pdfServices.generatePdf(ocorrencia);
 
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=GeneratedDocument.pdf");
@@ -84,10 +55,6 @@ public class OcorrenciaController implements Controller<Ocorrencia> {
         }
         catch(EntityNotFoundException e){
             throw new ResourceNotFoundException(id);
-        }
-        catch (DocumentException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body(null);
         }
     }
 
