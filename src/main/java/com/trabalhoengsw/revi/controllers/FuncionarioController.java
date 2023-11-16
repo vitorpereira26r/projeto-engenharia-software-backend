@@ -43,8 +43,10 @@ public class FuncionarioController implements Controller<Funcionario>{
 
     @PostMapping("/login")
     public ResponseEntity<Funcionario> fazerLogin(@RequestBody LoginDto dto){
-        Funcionario funcionario = funcionarioRepository.findByName(dto.getName()).orElseThrow(() -> new ResourceNotFoundException("Funcionario de name " + dto.getName() + " nao encontrado"));
-
+        Funcionario funcionario = funcionarioRepository.findByEmail(
+                dto.getEmail()).orElseThrow(() ->
+                new LoginFail("Funcionario de email " + dto.getEmail() + " nao encontrado")
+        );
         if(!funcionario.getPassword().equals(dto.getPassword())){
             throw new LoginFail("Password is incorrect");
         }

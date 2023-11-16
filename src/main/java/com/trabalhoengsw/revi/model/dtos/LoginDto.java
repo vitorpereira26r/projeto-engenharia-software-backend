@@ -4,7 +4,7 @@ import com.trabalhoengsw.revi.model.Funcionario;
 
 public class LoginDto {
 
-    private String name;
+    private String email;
 
     private String password;
 
@@ -12,21 +12,21 @@ public class LoginDto {
     }
 
     public LoginDto(Funcionario funcionario){
-        this.name = funcionario.getName();
+        this.email = funcionario.getName();
         this.password = funcionario.getPassword();
-        }
+    }
 
-    public LoginDto(String name, String password) {
-        this.name = name;
+    public LoginDto(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
