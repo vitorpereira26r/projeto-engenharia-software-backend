@@ -1,8 +1,6 @@
 package com.trabalhoengsw.revi.controllers;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.trabalhoengsw.revi.config.FileStorageProperties;
 import com.trabalhoengsw.revi.exceptions.DatabaseException;
@@ -28,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,11 +52,22 @@ public class OcorrenciaController implements Controller<Ocorrencia> {
             Ocorrencia ocorrencia = repository.getReferenceById(id);
 
             document.open();
+
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
+            Paragraph title = new Paragraph("Relatório de Ocorrência", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+
             document.add(new Paragraph("Relatório ocorrencia do veiculo " + ocorrencia.getVeiculo().getPlaca() + " e do cliente " + ocorrencia.getCliente().getName()));
             document.add(new Paragraph("Informações da ocorrência: "));
             document.add(new Paragraph("Cliente da ocorrencia: "+ocorrencia.getCliente().getName()));
             document.add(new Paragraph("Veiculo da ocorrencia: "+ocorrencia.getVeiculo().getPlaca()));
-            document.add(new Paragraph("Horario ocorrencia: "+ocorrencia.getData()));
+
+            Date date = Date.from(ocorrencia.getData());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
+            String formattedDate = dateFormat.format(date);
+            document.add(new Paragraph("Horário da ocorrência: " + formattedDate));
+
             document.add(new Paragraph("Descrição ocorrencia: "+ocorrencia.getDescription()));
             document.close();
 
