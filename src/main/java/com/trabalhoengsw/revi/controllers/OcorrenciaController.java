@@ -71,7 +71,11 @@ public class OcorrenciaController implements Controller<Ocorrencia> {
                     .headers(headers)
                     .body(pdfBytes);
 
-        } catch (DocumentException e) {
+        }
+        catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
+        catch (DocumentException e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }
