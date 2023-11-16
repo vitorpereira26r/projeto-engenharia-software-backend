@@ -91,6 +91,6 @@ public class VeiculoController implements Controller<Veiculo> {
     private boolean isNotUnique(Veiculo veiculo){
         Optional<Veiculo> existingPlaca = veiculoRepository.findByPlaca(veiculo.getPlaca());
 
-        return existingPlaca.isPresent();
+        return existingPlaca.isPresent() && existingPlaca.get().getId() != veiculo.getId();
     }
 }
