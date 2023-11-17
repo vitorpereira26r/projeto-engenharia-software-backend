@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Funcionario extends Pessoa{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_funcionario")
     private Integer id;
 

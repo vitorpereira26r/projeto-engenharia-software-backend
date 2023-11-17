@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Ocorrencia {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ocorrencia_id")
     private Integer id;
 

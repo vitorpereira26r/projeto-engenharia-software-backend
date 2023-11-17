@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Cliente extends Pessoa{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cliente")
     private Integer id;
 

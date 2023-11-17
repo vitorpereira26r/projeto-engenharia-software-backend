@@ -9,6 +9,8 @@ criar a base de dados com o nome "projeto-eng-software" nna mysql connection que
 colocar o username e a senha da sua connection do seu computador no arquivo application-dev.properties nos campos designados
 mudar em application.properties o profile para dev, ao inves de test
 
+rodar o script "adicionar_dados.sql" no workbench, mas rodar um insert de cada vez (um inseet de entidade de cada vez, todos da mesma entidade podem ser adicionados junto), isso porque algumas entidades dependem de outras, mas na ordem que esta o arquivo esta correto
+
 descrição funcionalidade - url - metodo - observação
 
 criar ocorrencia - http://localhost:8080/ocorrencia/create (POST)
