@@ -91,17 +91,17 @@ public class OcorrenciaController implements Controller<Ocorrencia> {
         );
     }
 
-    @GetMapping("/get-veiculo")
+    @PostMapping("/get-veiculo")
     public List<Ocorrencia> getByVeiculo(@RequestBody OcorrenciaGetDto dto){
         return repository.findByVeiculo_Placa(dto.getVeiculoPlaca());
     }
 
-    @GetMapping("/get-cliente")
+    @PostMapping("/get-cliente")
     public List<Ocorrencia> getByCliente(@RequestBody OcorrenciaGetDto dto){
         return repository.findByCliente_Email(dto.getClienteEmail());
     }
 
-    @GetMapping("/get-data")
+    @PostMapping("/get-data")
     public List<Ocorrencia> getByData(@RequestBody OcorrenciaGetDto dto){
         return repository.findByData(dto.getData());
     }

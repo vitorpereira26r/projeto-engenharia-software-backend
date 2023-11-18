@@ -53,12 +53,12 @@ public class VeiculoController implements Controller<Veiculo> {
         );
     }
 
-    @GetMapping("/get-placa")
+    @PostMapping("/get-placa")
     public Veiculo getByPlaca(@RequestBody VeiculoGetDto dto){
         return veiculoRepository.findByPlaca(dto.getPlaca()).orElseThrow(() -> new ResourceNotFoundException(dto.getPlaca()));
     }
 
-    @GetMapping("/get-cliente-email")
+    @PostMapping("/get-cliente-email")
     public List<Veiculo> getByCLiente(@RequestBody VeiculoGetDto dto){
         return veiculoRepository.findByCliente_Email(dto.getEmail());
     }
