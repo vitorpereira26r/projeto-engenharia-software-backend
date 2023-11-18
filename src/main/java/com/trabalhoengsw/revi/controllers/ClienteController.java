@@ -52,12 +52,12 @@ public class ClienteController implements Controller<Cliente>{
         );
     }
 
-    @GetMapping("/get-nome")
+    @PostMapping("/get-nome")
     public Cliente getByNome(@RequestBody ClienteGetDto dto){
         return clienteRepository.findByName(dto.getNome()).orElseThrow(() -> new ResourceNotFoundException(dto.getNome()));
     }
 
-    @GetMapping("/get-cpf")
+    @PostMapping("/get-cpf")
     public Cliente getByCpf(@RequestBody ClienteGetDto dto){
         return clienteRepository.findByCpf(dto.getCpf()).orElseThrow(() -> new ResourceNotFoundException(dto.getCpf()));
     }
