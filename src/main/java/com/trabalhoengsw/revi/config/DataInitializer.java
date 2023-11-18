@@ -16,7 +16,7 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Component
+@Component
 public class DataInitializer implements CommandLineRunner {
 
     private final ClienteRepository clienteRepository;

@@ -4,11 +4,13 @@ import com.trabalhoengsw.revi.exceptions.DatabaseException;
 import com.trabalhoengsw.revi.exceptions.ResourceNotFoundException;
 import com.trabalhoengsw.revi.model.Funcionario;
 import com.trabalhoengsw.revi.model.Veiculo;
+import com.trabalhoengsw.revi.model.dtos.VeiculoGetDto;
 import com.trabalhoengsw.revi.repositories.VeiculoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,6 +51,16 @@ public class VeiculoController implements Controller<Veiculo> {
         return veiculoRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException(id)
         );
+    }
+
+    @GetMapping("/get-placa")
+    public Veiculo getByPlaca(@RequestBody VeiculoGetDto dto){
+        return veiculoRepository.findByPlaca(dto.getPlaca()).orElseThrow(() -> new ResourceNotFoundException(dto.getPlaca()));
+    }
+
+    @GetMapping("/get-cliente-email")
+    public List<Veiculo> getByCLiente(@RequestBody VeiculoGetDto dto){
+        return veiculoRepository.findByCliente_Email(dto.getEmail());
     }
 
     @Override
