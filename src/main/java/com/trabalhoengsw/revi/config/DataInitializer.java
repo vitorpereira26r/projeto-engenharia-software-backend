@@ -31,7 +31,7 @@ public class DataInitializer implements CommandLineRunner {
         this.ocorrenciaRepository = ocorrenciaRepository;
     }
 
-    @Override
+    //@Override
     public void run(String... args) {
         Cliente cliente1 = new Cliente("Hulk do galo", "1234567890", "hulk7givanildo@gmail.com", "paunocumaria");
         Cliente cliente2 = new Cliente("Cliente 2", "1111111111", "cliente2@gmail.com", "senha2");
