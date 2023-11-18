@@ -57,8 +57,8 @@ public class DataInitializer implements CommandLineRunner {
         veiculoRepository.save(veiculo2);
 
         // Criar ocorrências
-        Ocorrencia ocorrencia1 = new Ocorrencia(Instant.now(), "Batida de carro", cliente1, veiculo1);
-        Ocorrencia ocorrencia2 = new Ocorrencia(Instant.now(), "Roubo de veículo", cliente2, veiculo2);
+        Ocorrencia ocorrencia1 = new Ocorrencia("2022-11-09", "Batida de carro", cliente1, veiculo1);
+        Ocorrencia ocorrencia2 = new Ocorrencia("2023-11-17", "Roubo de veículo", cliente2, veiculo2);
 
         // Salvar ocorrências no banco de dados
         ocorrenciaRepository.save(ocorrencia1);

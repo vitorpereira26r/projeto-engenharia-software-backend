@@ -17,8 +17,7 @@ public class Ocorrencia {
     private Integer id;
 
     @Column(name = "data")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-    private Instant data;
+    private String data;
 
     @Column(name = "description")
     private String description;
@@ -34,7 +33,7 @@ public class Ocorrencia {
     public Ocorrencia() {
     }
 
-    public Ocorrencia(Instant data, String description, Cliente cliente, Veiculo veiculo) {
+    public Ocorrencia(String data, String description, Cliente cliente, Veiculo veiculo) {
         this.data = data;
         this.description = description;
         this.cliente = cliente;
@@ -49,11 +48,11 @@ public class Ocorrencia {
         this.id = id;
     }
 
-    public Instant getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Instant data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -100,8 +99,6 @@ public class Ocorrencia {
                 "id=" + id +
                 ", data=" + data +
                 ", description='" + description + '\'' +
-                ", cliente=" + cliente +
-                ", veiculo=" + veiculo +
                 '}';
     }
 }

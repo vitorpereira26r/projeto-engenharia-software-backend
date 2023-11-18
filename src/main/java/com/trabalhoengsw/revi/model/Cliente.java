@@ -109,7 +109,6 @@ public class Cliente extends Pessoa{
     public String toString() {
         return "Cliente{" +
                 "id=" + id +
-                ", veiculos=" + veiculos +
                 '}';
     }
 }

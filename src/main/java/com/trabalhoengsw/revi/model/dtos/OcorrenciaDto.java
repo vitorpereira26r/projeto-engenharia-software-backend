@@ -3,17 +3,22 @@ package com.trabalhoengsw.revi.model.dtos;
 import com.trabalhoengsw.revi.model.Cliente;
 import com.trabalhoengsw.revi.model.Veiculo;
 
+import java.time.Instant;
+
 public class OcorrenciaDto {
 
     private String description;
+    private String data;
     private Cliente cliente;
     private Veiculo veiculo;
 
     public OcorrenciaDto() {
+
     }
 
-    public OcorrenciaDto(String description, Cliente cliente, Veiculo veiculo) {
+    public OcorrenciaDto(String description, String data, Cliente cliente, Veiculo veiculo) {
         this.description = description;
+        this.data = data;
         this.cliente = cliente;
         this.veiculo = veiculo;
     }
@@ -40,5 +45,13 @@ public class OcorrenciaDto {
 
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }

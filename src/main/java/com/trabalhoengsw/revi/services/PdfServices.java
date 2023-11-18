@@ -21,6 +21,7 @@ public class PdfServices {
             PdfWriter.getInstance(document, baos);
 
             document.open();
+            System.out.println("Document opened");
 
             Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
             Paragraph title = new Paragraph("Relatório de Ocorrência", titleFont);
@@ -39,11 +40,8 @@ public class PdfServices {
                     "Descrição da ocorrência: " + ocorrencia.getDescription()
             ));
 
-            Date date = Date.from(ocorrencia.getData());
-            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
-            String formattedDate = dateFormat.format(date);
             document.add(new Paragraph(
-                    "Horário da ocorrência: " + formattedDate
+                    "Horário da ocorrência: " + ocorrencia.getData()
             ));
 
             document.add(new Paragraph("\n"));
@@ -57,6 +55,8 @@ public class PdfServices {
                     "Nome do cliente: "
                             + ocorrencia.getCliente().getName()
             ));
+
+            System.out.println(ocorrencia.getCliente());
 
             document.add(new Paragraph(
                     "Cpf do cliente: "

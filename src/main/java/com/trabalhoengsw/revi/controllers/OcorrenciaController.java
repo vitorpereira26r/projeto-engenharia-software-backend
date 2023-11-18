@@ -41,6 +41,7 @@ public class OcorrenciaController implements Controller<Ocorrencia> {
         try {
 
             Ocorrencia ocorrencia = repository.getReferenceById(id);
+            System.out.println(ocorrencia);
 
             byte[] pdfBytes = pdfServices.generatePdf(ocorrencia);
 
@@ -61,7 +62,7 @@ public class OcorrenciaController implements Controller<Ocorrencia> {
     @PostMapping("/create")
     public Ocorrencia createElement(@RequestBody OcorrenciaDto dto) {
         Ocorrencia ocorrencia = new Ocorrencia(
-                Instant.now(),
+                dto.getData(),
                 dto.getDescription(),
                 dto.getCliente(),
                 dto.getVeiculo()
