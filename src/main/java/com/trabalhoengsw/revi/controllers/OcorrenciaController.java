@@ -4,6 +4,7 @@ import com.trabalhoengsw.revi.exceptions.DatabaseException;
 import com.trabalhoengsw.revi.exceptions.ResourceNotFoundException;
 import com.trabalhoengsw.revi.model.Ocorrencia;
 import com.trabalhoengsw.revi.model.dtos.OcorrenciaDto;
+import com.trabalhoengsw.revi.model.dtos.OcorrenciaGetDto;
 import com.trabalhoengsw.revi.repositories.OcorrenciaRepository;
 import com.trabalhoengsw.revi.services.PdfServices;
 import jakarta.persistence.EntityNotFoundException;
@@ -88,6 +89,21 @@ public class OcorrenciaController implements Controller<Ocorrencia> {
         return repository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException(id)
         );
+    }
+
+    @GetMapping("/get-veiculo")
+    public List<Ocorrencia> getByVeiculo(@RequestBody OcorrenciaGetDto dto){
+        return repository.findByVeiculo_Placa(dto.getVeiculoPlaca());
+    }
+
+    @GetMapping("/get-cliente")
+    public List<Ocorrencia> getByCliente(@RequestBody OcorrenciaGetDto dto){
+        return repository.findByCliente_Email(dto.getClienteEmail());
+    }
+
+    @GetMapping("/get-data")
+    public List<Ocorrencia> getByData(@RequestBody OcorrenciaGetDto dto){
+        return repository.findByData(dto.getData());
     }
 
     @Override

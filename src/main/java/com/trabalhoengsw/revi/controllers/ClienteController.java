@@ -4,6 +4,7 @@ import com.trabalhoengsw.revi.exceptions.DatabaseException;
 import com.trabalhoengsw.revi.exceptions.ResourceNotFoundException;
 import com.trabalhoengsw.revi.model.Cliente;
 import com.trabalhoengsw.revi.model.Funcionario;
+import com.trabalhoengsw.revi.model.dtos.ClienteGetDto;
 import com.trabalhoengsw.revi.repositories.ClienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,16 @@ public class ClienteController implements Controller<Cliente>{
         return clienteRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException(id)
         );
+    }
+
+    @GetMapping("/get-nome")
+    public Cliente getByNome(@RequestBody ClienteGetDto dto){
+        return clienteRepository.findByName(dto.getNome()).orElseThrow(() -> new ResourceNotFoundException(dto.getNome()));
+    }
+
+    @GetMapping("/get-cpf")
+    public Cliente getByCpf(@RequestBody ClienteGetDto dto){
+        return clienteRepository.findByCpf(dto.getCpf()).orElseThrow(() -> new ResourceNotFoundException(dto.getCpf()));
     }
 
     @Override
