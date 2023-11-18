@@ -27,7 +27,6 @@ public class Veiculo {
     private Year ano;
 
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
